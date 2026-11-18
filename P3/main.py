@@ -18,6 +18,8 @@ def main():
         "3. Volver al menú principal"
     ]
     
+    matriz_actual = MatrizFloat()
+
     # Bucle while para mantener el programa vivo usando crear_menu()
     while True:
         opcion = crear_menu(opciones_principales)
