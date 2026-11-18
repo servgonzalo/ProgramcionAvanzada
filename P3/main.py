@@ -1,58 +1,64 @@
-"""Funciones de entrada y menús; los errores se gestionan desde main.py."""
+# from matriz import MatrizFloat
+# from utils import leer_int, crear_menu
 
-import math
-from typing import List
+def main():
+    opciones_principales = [
+        "1. Construir matriz 1D",
+        "2. Construir matriz 2D",
+        "3. Construir matriz identidad",
+        "4. Introducir matriz",
+        "5. Mostrar matriz",
+        "6. Operaciones con matrices",
+        "7. Terminar"
+    ]
+    
+    opciones_operaciones = [
+        "1. Sumar matrices",
+        "2. Restar matrices",
+        "3. Volver al menú principal"
+    ]
+    
+    # Bucle while para mantener el programa vivo usando crear_menu()
+    while True:
+        opcion = crear_menu(opciones_principales)
+        
+        if opcion == 1:
+            n = leer_int("Número de elementos: ")
+            matriz_actual.crear_matriz1D(n)
+            
+        elif opcion == 2:
+            filas = leer_int("Número de filas: ")
+            cols = leer_int("Número de columnas: ")
+            matriz_actual.crear_matriz2D(filas, cols)
+            
+        elif opcion == 3:
+            n = leer_int("Tamaño n de la matriz identidad: ")
+            matriz_actual = MatrizFloat.matriz_identidad(n)
+            
+        elif opcion == 4:
+            matriz_actual.introducir()
+            
+        elif opcion == 5:
+            matriz_actual.mostrar()
+            
+        elif opcion == 6:
+            # BUCLE DEL SUBMENÚ DE OPERACIONES
+            while True:
+                op_alg = crear_menu(opciones_operaciones)
+                
+                if op_alg == 1:
+                    # Lógica para pedir segunda matriz y sumar
+                    pass
+                elif op_alg == 2:
+                    # Lógica para pedir segunda matriz y restar
+                    pass
+                elif op_alg == 3:
+                    # AQUÍ ESTÁ "VOLVER AL MENÚ PRINCIPAL"
+                    break  # Sale del submenú y regresa al bucle principal
+                    
+        elif opcion == 7:
+            print("Programa finalizado.")
+            break  # Sale del bucle principal y termina el programa
 
-
-def _leer_entrada(mensaje: str) -> str:
-    """Lee texto tras comprobar que el mensaje es una cadena."""
-    if not isinstance(mensaje, str):
-        raise TypeError("El mensaje debe ser una cadena de texto.")
-    return input(mensaje)
-
-
-def leer_int(mensaje: str = "Introduce un número entero: ") -> int:
-    """Lee un entero; lanza ValueError si el texto no representa un entero.
-
-    Un mensaje de otro tipo provoca TypeError. No repite la lectura, para
-    que el programa que llama pueda capturar y gestionar la excepción.
-    """
-    return int(_leer_entrada(mensaje))
-
-
-def leer_float(mensaje: str = "Introduce un número decimal: ") -> float:
-    """Lee un decimal finito con punto o coma; errores de valor: ValueError."""
-    valor = float(_leer_entrada(mensaje).replace(",", "."))
-    if not math.isfinite(valor):
-        raise ValueError("El número decimal debe ser finito.")
-    return valor
-
-
-def leer_cadena(mensaje: str) -> str:
-    """Lee texto sin espacios exteriores; una cadena vacía da ValueError."""
-    valor = _leer_entrada(mensaje).strip()
-    if not valor:
-        raise ValueError("La cadena no puede estar vacía.")
-    return valor
-
-
-def crear_menu(opciones_menu: List[str]) -> int:
-    """Muestra una lista de opciones y lee una selección entre 1 y su tamaño.
-
-    Lanza TypeError si el argumento no es una lista de cadenas, y ValueError
-    si está vacía, hay opciones en blanco o la selección está fuera de rango.
-    Una selección no entera también provoca ValueError mediante leer_int.
-    """
-    if not isinstance(opciones_menu, list):
-        raise TypeError("Las opciones del menú deben estar en una lista.")
-    if any(not isinstance(opcion, str) for opcion in opciones_menu):
-        raise TypeError("Cada opción del menú debe ser una cadena de texto.")
-    if not opciones_menu or any(not opcion.strip() for opcion in opciones_menu):
-        raise ValueError("El menú debe contener opciones de texto no vacías.")
-    print()
-    for numero, opcion in enumerate(opciones_menu, start=1):
-        print(f"{numero}. {opcion}")
-    seleccion = leer_int("Selecciona una opción: ")
-    if not 1 <= seleccion <= len(opciones_menu):
-        raise ValueError(f"Elige una opción entre 1 y {len(opciones_menu)}.")
-    return seleccion
+if __name__ == "__main__":
+    main()
